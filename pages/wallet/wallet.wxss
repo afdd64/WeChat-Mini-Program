@@ -1,0 +1,96 @@
+/* pages/wallet/wallet.wxss */
+.wallet-header {
+  background: #fff;
+  padding: 60rpx 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.balance-label {
+  color: #666;
+  font-size: 32rpx;
+}
+
+.balance-amount {
+  font-size: 72rpx;
+  color: #e4393c;
+  font-weight: bold;
+}
+
+.recharge-section {
+  background: #fff;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.amount-input {
+  display: flex;
+  align-items: center;
+  border-bottom: 2rpx solid #eee;
+  padding: 20rpx 0;
+  margin-top: 20rpx;
+}
+
+.currency-symbol {
+  font-size: 48rpx;
+  margin-right: 20rpx;
+}
+
+.quick-amount {
+  background: #fff;
+  padding: 30rpx;
+}
+
+.amount-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20rpx;
+  margin-top: 20rpx;
+}
+
+.amount-item {
+  border: 2rpx solid #eee;
+  border-radius: 8rpx;
+  padding: 30rpx 0;
+  text-align: center;
+  font-size: 32rpx;
+}
+
+.active {
+  border-color: #e4393c;
+  color: #e4393c;
+  background: #ffeeee;
+}
+
+.payment-methods {
+  background: #fff;
+  margin-top: 30rpx;
+  padding: 30rpx;
+}
+
+.method-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid #eee;
+}
+
+.method-info {
+  display: flex;
+  align-items: center;
+}
+
+.method-icon {
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 20rpx;
+}
+
+.recharge-btn {
+  background: linear-gradient(90deg, #e4393c, #ff6b6b);
+  color: #fff;
+  margin: 40rpx 30rpx;
+  border-radius: 50rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+}

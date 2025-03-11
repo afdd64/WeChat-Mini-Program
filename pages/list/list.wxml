@@ -1,0 +1,65 @@
+<!-- pages/list/list.wxml -->
+<view class="container">
+  <!-- 订单状态导航 -->
+  <scroll-view scroll-x class="nav-tabs">
+    <block wx:for="{{orderTabs}}" wx:key="value">
+      <view 
+        class="tab-item {{currentTab === item.value ? 'active' : ''}}"
+        bindtap="switchTab"
+        data-tab="{{item.value}}"
+      >
+        {{item.label}}
+      </view>
+    </block>
+  </scroll-view>
+
+  <!-- 订单列表 -->
+  <scroll-view scroll-y class="order-list">
+    <block wx:for="{{orders}}" wx:key="orderNo">
+      <view class="order-item">
+        <view class="order-header">
+          <text>订单号：{{item.orderNo}}</text>
+          <text class="status">{{getStatusText(item.status)}}</text>
+        </view>
+        
+        <view class="goods-list">
+          <block wx:for="{{item.goods}}" wx:key="id">
+            <view class="goods-item">
+              <image src="{{item.image}}" class="goods-image"/>
+              <view class="goods-info">
+                <text class="goods-name">{{item.name}}</text>
+                <text class="goods-price">¥{{item.price}} x{{item.quantity}}</text>
+              </view>
+            </view>
+          </block>
+        </view>
+
+        <view class="order-footer">
+          <text class="total">共{{item.totalQuantity}}件 合计：¥{{item.totalAmount}}</text>
+          <view class="actions">
+            <button 
+              wx:if="{{item.status === 'unpaid'}}" 
+              class="action-btn" 
+              bindtap="handlePay"
+              data-orderNo="{{item.orderNo}}"
+            >
+              立即支付
+            </button>
+            <button 
+              class="action-btn secondary" 
+              bindtap="viewDetail"
+              data-orderNo="{{item.orderNo}}"
+            >
+              查看详情
+            </button>
+          </view>
+        </view>
+      </view>
+    </block>
+    
+    <view wx:if="{{orders.length === 0}}" class="empty">
+      <image src="/static/images/empty-order.png" class="empty-image"/>
+      <text class="empty-text">暂无相关订单</text>
+    </view>
+  </scroll-view>
+</view>

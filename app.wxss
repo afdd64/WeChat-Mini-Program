@@ -1,0 +1,62 @@
+/* 自定义导航栏 */
+.custom-nav {
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 30rpx;
+  background: #fff;
+  border-bottom: 1rpx solid #eee;
+}
+
+.back-btn {
+  font-size: 50rpx;
+  margin-right: 30rpx;
+}
+
+/* 全局按钮样式 */
+button {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  line-height: inherit;
+}
+button::after {
+  border: none;
+}
+
+page {
+  background-color: #f8f8f8;
+}
+
+.section {
+  background: #fff;
+  margin: 20rpx;
+  border-radius: 16rpx;
+  padding: 20rpx;
+}
+
+.active {
+  color: #e4393c;
+  border-bottom: 4rpx solid #e4393c;
+}
+/* 统一按钮样式 */
+button {
+  margin: 0;
+  padding: 0;
+  font-size: 28rpx;
+  line-height: 1.4;
+}
+
+/* 禁用按钮样式 */
+button[disabled] {
+  opacity: 0.6;
+}
+
+/* 主色调定义 */
+.primary-color {
+  color: #e4393c;
+}
+
+.primary-bg {
+  background: #e4393c;
+}

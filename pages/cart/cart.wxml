@@ -1,0 +1,29 @@
+<view class="container">
+  <!-- 商品列表 -->
+  <scroll-view scroll-y class="cart-list">
+    <block wx:for="{{cartItems}}" wx:key="id">
+      <view class="cart-item">
+        <image src="{{item.image}}" mode="aspectFill"/>
+        <view class="info">
+          <text class="title">{{item.name}}</text>
+          <view class="price-line">
+            <text class="price">￥{{item.price}}</text>
+            <view class="quantity-control">
+              <button bindtap="decreaseQuantity" data-id="{{item.product_id}}">-</button>
+              <text class="quantity">{{item.quantity}}</text>
+              <button bindtap="increaseQuantity" data-id="{{item.product_id}}">+</button>
+            </view>
+          </view>
+        </view>
+        <button class="delete-btn" bindtap="removeItem" data-id="{{item.product_id}}">×</button>
+      </view>
+    </block>
+    <view wx:if="{{cartItems.length === 0}}" class="empty">购物车是空的哦~</view>
+  </scroll-view>
+
+  <!-- 底部结算栏 -->
+  <view class="footer">
+    <view class="total">合计：￥{{totalPrice}}</view>
+    <button class="checkout-btn" bindtap="gotoPayment">去结算</button>
+  </view>
+</view>

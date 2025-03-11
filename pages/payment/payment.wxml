@@ -1,0 +1,44 @@
+<!-- pages/payment/payment.wxml -->
+<view class="container">
+  <!-- 自定义导航 -->
+  <view class="custom-nav">
+    <navigator open-type="navigateBack" class="back-btn">‹</navigator>
+    <text class="title">订单支付</text>
+  </view>
+
+  <!-- 地址选择模块 -->
+  <view class="address-card" bindtap="chooseAddress">
+    <view wx:if="{{selectedAddress}}" class="address-info">
+      <view class="address-header">
+        <text class="name">{{selectedAddress.name}}</text>
+        <text class="phone">{{selectedAddress.phone}}</text>
+        <text class="default-tag" wx:if="{{selectedAddress.is_default}}">默认</text>
+      </view>
+      <view class="address-detail">
+        {{selectedAddress.province}}{{selectedAddress.city}}{{selectedAddress.district}}{{selectedAddress.detail}}
+      </view>
+    </view>
+    <view wx:else class="add-address">
+      <image src="/static/icons/add-address.png" class="add-icon"/>
+      <text class="add-text">添加收货地址</text>
+    </view>
+  </view>
+
+  <!-- 支付方式选择 -->
+  <view class="payment-methods">
+    <view class="method-item" wx:for="{{methods}}" wx:key="value">
+      <view class="method-left">
+        <image src="{{item.icon}}" class="method-icon"/>
+        <text class="method-name">{{item.name}}</text>
+        <text class="method-desc" wx:if="{{item.desc}}">{{item.desc}}</text>
+      </view>
+      <radio value="{{item.value}}" checked="{{paymentMethod === item.value}}"/>
+    </view>
+  </view>
+
+  <!-- 支付按钮 -->
+  <view class="payment-footer">
+    <text class="total-amount">实付：￥{{paymentAmount}}</text>
+    <button class="pay-btn" bindtap="handlePayment">立即支付</button>
+  </view>
+</view>

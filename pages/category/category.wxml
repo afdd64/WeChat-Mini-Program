@@ -1,0 +1,15 @@
+<view class="container">
+  <!-- 商品列表 -->
+  <scroll-view scroll-y class="product-list">
+    <block wx:for="{{products}}" wx:key="id">
+      <view class="product-item" bindtap="onProductTap" data-id="{{item.id}}">
+        <image src="{{item.image}}" mode="aspectFill" />
+        <view class="product-info">
+          <text class="product-name">{{item.name}}</text>
+          <text class="product-price">￥{{item.price}}</text>
+        </view>
+      </view>
+    </block>
+    <view wx:if="{{products.length === 0}}" class="empty-tip">暂无商品</view>
+  </scroll-view>
+</view>

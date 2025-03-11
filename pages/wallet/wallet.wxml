@@ -1,0 +1,61 @@
+<!-- pages/wallet/wallet.wxml -->
+<view class="container">
+  <!-- 钱包概览 -->
+  <view class="wallet-header">
+    <text class="balance-label">当前余额</text>
+    <text class="balance-amount">￥{{balance}}</text>
+  </view>
+
+  <!-- 充值金额输入 -->
+  <view class="recharge-section">
+    <text class="section-title">充值金额</text>
+    <view class="amount-input">
+      <text class="currency-symbol">¥</text>
+      <input 
+        type="number" 
+        placeholder="输入充值金额" 
+        bindinput="inputAmount"
+        value="{{rechargeAmount}}"
+      />
+    </view>
+  </view>
+
+  <!-- 快捷金额 -->
+  <view class="quick-amount">
+    <text class="section-title">快捷充值</text>
+    <view class="amount-grid">
+      <block wx:for="{{quickAmounts}}" wx:key="index">
+        <view 
+          class="amount-item {{activeAmount === item ? 'active' : ''}}"
+          bindtap="selectAmount"
+          data-amount="{{item}}"
+        >
+          ¥{{item}}
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 支付方式 -->
+  <view class="payment-methods">
+    <text class="section-title">选择支付方式</text>
+    <radio-group bindchange="selectMethod">
+      <label 
+        wx:for="{{paymentMethods}}" 
+        wx:key="value"
+        class="method-item"
+      >
+        <view class="method-info">
+          <image src="{{item.icon}}" class="method-icon"/>
+          <view class="method-text">
+            <text class="method-name">{{item.name}}</text>
+            <text class="method-desc">{{item.desc}}</text>
+          </view>
+        </view>
+        <radio value="{{item.value}}" checked="{{paymentMethod === item.value}}"/>
+      </label>
+    </radio-group>
+  </view>
+
+  <button class="recharge-btn" bindtap="handleRecharge">立即充值</button>
+</view>

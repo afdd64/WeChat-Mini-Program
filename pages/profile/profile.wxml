@@ -1,0 +1,27 @@
+<view class="container">
+  <!-- 订单状态导航 -->
+  <view class="order-nav">
+    <view 
+      wx:for="{{orderTabs}}" 
+      wx:key="value"
+      class="nav-item {{currentTab === item.value ? 'active' : ''}}"
+      bindtap="switchTab"
+      data-tab="{{item.value}}"
+    >
+      {{item.label}}
+    </view>
+  </view>
+
+  <!-- 功能入口 -->
+  <view class="menu-list">
+    <navigator 
+      wx:for="{{menuItems}}" 
+      wx:key="url"
+      url="{{item.url}}" 
+      class="menu-item"
+    >
+      <text>{{item.label}}</text>
+      <text class="arrow">›</text>
+    </navigator>
+  </view>
+</view>

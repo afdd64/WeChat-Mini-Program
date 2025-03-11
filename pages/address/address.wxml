@@ -1,0 +1,84 @@
+<!-- pages/address/address.wxml -->
+<view class="container">
+  <!-- 地址列表 -->
+  <scroll-view scroll-y class="address-list">
+    <block wx:for="{{addressList}}" wx:key="id">
+      <view class="address-item {{item.is_default ? 'default' : ''}}">
+        <view class="info">
+          <view class="header">
+            <text class="name">{{item.name}}</text>
+            <text class="phone">{{item.phone}}</text>
+            <text class="default-tag" wx:if="{{item.is_default}}">默认</text>
+          </view>
+          <view class="detail">
+            {{item.province}}{{item.city}}{{item.district}}{{item.detail}}
+          </view>
+        </view>
+        <view class="operations">
+          <text class="edit" bindtap="editAddress" data-index="{{index}}">编辑</text>
+          <text class="delete" bindtap="deleteAddress" data-id="{{item.id}}">删除</text>
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+
+  <!-- 新增地址按钮 -->
+  <button class="add-btn" bindtap="showEditForm">+ 新增地址</button>
+
+  <!-- 编辑表单弹窗 -->
+  <view class="modal" wx:if="{{showForm}}">
+    <view class="form-container">
+      <view class="form-item">
+        <text class="label">收货人</text>
+        <input 
+          type="text" 
+          placeholder="请输入姓名"
+          value="{{formData.name}}"
+          bindinput="bindNameInput"
+        />
+      </view>
+      
+      <view class="form-item">
+        <text class="label">联系方式</text>
+        <input 
+          type="number" 
+          placeholder="请输入手机号"
+          value="{{formData.phone}}"
+          bindinput="bindPhoneInput"
+        />
+      </view>
+
+      <view class="form-item">
+        <text class="label">所在地区</text>
+        <picker 
+          mode="region" 
+          bindchange="bindRegionChange"
+          value="{{[formData.province, formData.city, formData.district]}}"
+        >
+          <view class="picker">
+            {{formData.province || '请选择'}} {{formData.city || ''}} {{formData.district || ''}}
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <text class="label">详细地址</text>
+        <input 
+          type="text" 
+          placeholder="街道门牌信息"
+          value="{{formData.detail}}"
+          bindinput="bindDetailInput"
+        />
+      </view>
+
+      <view class="form-item">
+        <switch checked="{{formData.is_default}}" bindchange="bindDefaultChange"/> 设为默认地址
+      </view>
+
+      <view class="btn-group">
+        <button class="cancel-btn" bindtap="hideForm">取消</button>
+        <button class="confirm-btn" bindtap="submitForm">保存</button>
+      </view>
+    </view>
+  </view>
+</view>

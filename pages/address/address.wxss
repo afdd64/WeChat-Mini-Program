@@ -1,0 +1,122 @@
+/* pages/address/address.wxss */
+.address-list {
+  height: calc(100vh - 120rpx);
+  padding: 20rpx;
+}
+
+.address-item {
+  background: #fff;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+  padding: 30rpx;
+  position: relative;
+}
+
+.default {
+  border-left: 8rpx solid #e4393c;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.name {
+  font-size: 32rpx;
+  margin-right: 20rpx;
+}
+
+.phone {
+  color: #666;
+}
+
+.default-tag {
+  background: #ffeeee;
+  color: #e4393c;
+  font-size: 24rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  margin-left: 20rpx;
+}
+
+.operations {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30rpx;
+  border-top: 1rpx solid #eee;
+  padding-top: 20rpx;
+}
+
+.edit {
+  color: #666;
+  margin-right: 40rpx;
+}
+
+.delete {
+  color: #e4393c;
+}
+
+.add-btn {
+  position: fixed;
+  bottom: 40rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  background: #e4393c;
+  color: #fff;
+  border-radius: 50rpx;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-container {
+  background: #fff;
+  width: 80%;
+  padding: 40rpx;
+  border-radius: 20rpx;
+}
+
+.form-item {
+  margin-bottom: 30rpx;
+}
+
+.label {
+  display: block;
+  margin-bottom: 15rpx;
+  color: #666;
+}
+
+.picker {
+  color: #999;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #eee;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40rpx;
+}
+
+.cancel-btn {
+  background: #f8f8f8;
+  color: #666;
+  width: 45%;
+}
+
+.confirm-btn {
+  background: #e4393c;
+  color: #fff;
+  width: 45%;
+}
