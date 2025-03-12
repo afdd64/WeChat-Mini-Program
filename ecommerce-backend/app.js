@@ -4,6 +4,7 @@ const productRoutes = require('./routes/productRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const addressRoutes = require('./routes/addressRoutes');
 const walletRoutes = require('./routes/walletRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
@@ -17,6 +18,9 @@ app.use(cors());
 // 路由
 app.use('/products', productRoutes);
 app.use('/categories', categoryRoutes);
+app.use('/api/addresses', addressRoutes);
+app.use('/api/wallet', walletRoutes);
+app.use('/login', userRoutes);
 
 // 添加中间件验证用户
 app.use((req, res, next) => {
@@ -26,10 +30,6 @@ app.use((req, res, next) => {
   }
   next();
 });
-
-// 注册新路由
-app.use('/api/addresses', addressRoutes);
-app.use('/api/wallet', walletRoutes);
 
 // 错误处理中间件
 app.use((err, req, res, next) => {
