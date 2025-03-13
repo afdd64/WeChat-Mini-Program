@@ -1,9 +1,9 @@
 // app.js
 App({
   globalData: {
-    userInfo: null,
-    userId: null,
-    token: null
+    userInfo: null,      // 用户信息
+    userId: null,        // 用户ID
+    token: null          // 登录凭证
   },
 
   // 登录方法
@@ -13,17 +13,17 @@ App({
       wx.login({
         success: async (loginRes) => {
           try {
-            const { code } = loginRes;
+            const { code } = loginRes
 
             // 2. 获取用户信息
-            const userInfo = await this.getUserProfile();
+            const userInfo = await this.getUserProfile()
 
             // 3. 获取手机号
-            const phoneNumber = await this.getPhoneNumber();
+            const phoneNumber = await this.getPhoneNumber()
 
             // 4. 调用后端登录接口
-            const res = await wx.request({
-              url: 'http://localhost:3000/login',
+            const { data } = await wx.request({
+              url: 'https://your-api.com/login',
               method: 'POST',
               data: {
                 code,
@@ -31,32 +31,24 @@ App({
                 avatarUrl: userInfo.avatarUrl,
                 phoneNumber
               }
-            });
+            })
 
-            console.log('后端返回结果:', res.data); // 打印后端返回结果用于调试
-
-            const data = res.data;
             // 5. 保存登录状态
-            if (data && data.code === 200) {
-              this.globalData.userId = data.userId;
-              this.globalData.token = data.token;
-              this.globalData.userInfo = userInfo;
-              resolve();
+            if (data.code === 200) {
+              this.globalData.userId = data.userId
+              this.globalData.token = data.token
+              this.globalData.userInfo = userInfo
+              resolve()
             } else {
-              console.error('登录失败，后端返回信息:', data);
-              reject(new Error(data.message || '登录失败'));
+              reject(new Error(data.message || '登录失败'))
             }
           } catch (e) {
-            console.error('登录过程中出现错误:', e);
-            reject(e);
+            reject(e)
           }
         },
-        fail: (err) => {
-          console.error('获取微信登录凭证失败:', err);
-          reject(err);
-        }
-      });
-    });
+        fail: reject
+      })
+    })
   },
 
   // 获取用户信息
@@ -65,14 +57,11 @@ App({
       wx.getUserProfile({
         desc: '用于完善会员资料',
         success: (res) => {
-          resolve(res.userInfo);
+          resolve(res.userInfo)
         },
-        fail: (err) => {
-          console.error('获取用户信息失败:', err);
-          reject(err);
-        }
-      });
-    });
+        fail: reject
+      })
+    })
   },
 
   // 获取手机号
@@ -85,71 +74,65 @@ App({
             method: 'POST',
             data: { encryptedData: res.encryptedData, iv: res.iv },
             success: (decryptRes) => {
-              resolve(decryptRes.data.phoneNumber);
+              resolve(decryptRes.data.phoneNumber)
             },
-            fail: (err) => {
-              console.error('获取手机号失败:', err);
-              reject(err);
-            }
-          });
+            fail: reject
+          })
         },
-        fail: (err) => {
-          console.error('获取手机号授权失败:', err);
-          reject(err);
-        }
-      });
-    });
+        fail: reject
+      })
+    })
   },
 
   // 购物车操作方法
   cart: {
     getKey() {
-      const userId = getApp().globalData.userId || 'guest';
-      return `cart_${userId}`;
+      const userId = getApp().globalData.userId || 'guest'
+      return `cart_${userId}`
     },
 
     get() {
       try {
-        return wx.getStorageSync(this.getKey()) || [];
+        return wx.getStorageSync(this.getKey()) || []
       } catch (e) {
-        return [];
+        return []
       }
     },
 
     save(items) {
-      wx.setStorageSync(this.getKey(), items);
+      wx.setStorageSync(this.getKey(), items)
     },
 
     add(item) {
-      const cart = this.get();
-      const existing = cart.find(i => i.product_id === item.product_id);
+      const cart = this.get()
+      const existing = cart.find(i => i.product_id === item.product_id)
       if (existing) {
-        existing.quantity += item.quantity;
+        existing.quantity += item.quantity
       } else {
-        cart.push(item);
+        cart.push(item)
       }
-      this.save(cart);
-      return cart;
+      this.save(cart)
+      return cart
     },
 
     update(productId, quantity) {
-      const cart = this.get();
-      const item = cart.find(i => i.product_id === productId);
+      const cart = this.get()
+      const item = cart.find(i => i.product_id === productId)
       if (item) {
-        item.quantity = quantity;
-        this.save(cart);
+        item.quantity = quantity
+        this.save(cart)
       }
-      return cart;
+      return cart
     },
 
     remove(productId) {
-      const cart = this.get().filter(i => i.product_id !== productId);
-      this.save(cart);
-      return cart;
+      const cart = this.get().filter(i => i.product_id !== productId)
+      this.save(cart)
+      return cart
     },
 
     clear() {
-      this.save([]);
+      this.save([])
     }
   }
-});
+})

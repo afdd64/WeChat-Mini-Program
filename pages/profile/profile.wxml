@@ -1,25 +1,27 @@
-<view class="profile-container">
-  <!-- 个人信息模块 -->
-  <view class="user-info" bindtap="handleLogin">
-    <image src="{{userInfo.avatarUrl}}" class="avatar"></image>
-    <text class="nickname">{{userInfo.nickName}}</text>
+<view class="container">
+  <!-- 订单状态导航 -->
+  <view class="order-nav">
+    <view 
+      wx:for="{{orderTabs}}" 
+      wx:key="value"
+      class="nav-item {{currentTab === item.value ? 'active' : ''}}"
+      bindtap="switchTab"
+      data-tab="{{item.value}}"
+    >
+      {{item.label}}
+    </view>
   </view>
 
-  <!-- 订单标签 -->
-  <view class="order-tabs">
-    <block wx:for="{{orderTabs}}" wx:key="value">
-      <view class="order-tab" data-tab="{{item.value}}" bindtap="switchTab">
-        {{item.label}}
-      </view>
-    </block>
-  </view>
-
-  <!-- 菜单列表 -->
+  <!-- 功能入口 -->
   <view class="menu-list">
-    <block wx:for="{{menuItems}}" wx:key="url">
-      <navigator url="{{item.url}}" class="menu-item">
-        {{item.label}}
-      </navigator>
-    </block>
+    <navigator 
+      wx:for="{{menuItems}}" 
+      wx:key="url"
+      url="{{item.url}}" 
+      class="menu-item"
+    >
+      <text>{{item.label}}</text>
+      <text class="arrow">›</text>
+    </navigator>
   </view>
 </view>
