@@ -22,18 +22,24 @@ App({
             const phoneNumber = await this.getPhoneNumber();
 
             // 4. 调用后端登录接口
-            const res = await wx.request({
-              url: 'http://localhost:3000/login',
-              method: 'POST',
-              data: {
-                code,
-                nickName: userInfo.nickName,
-                avatarUrl: userInfo.avatarUrl,
-                phoneNumber
-              }
+            const res = await new Promise((resolveReq, rejectReq) => {
+              wx.request({
+                url: 'http://localhost:3000/login',
+                method: 'POST',
+                data: {
+                  code,
+                  nickName: userInfo.nickName,
+                  avatarUrl: userInfo.avatarUrl,
+                  phoneNumber
+                },
+                success: resolveReq,
+                fail: rejectReq
+              });
             });
 
-            console.log('后端返回结果:', res.data); // 打印后端返回结果用于调试
+            // 打印完整的响应信息
+            console.log('后端返回的完整响应:', res);
+            console.log('后端返回结果:', res.data);
 
             const data = res.data;
             // 5. 保存登录状态

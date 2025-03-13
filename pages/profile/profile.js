@@ -53,7 +53,30 @@ Page({
   async handleLogin() {
     if (!app.globalData.userId) {
       try {
-        await app.login();
+        // 1. 获取微信登录凭证
+        const loginRes = await new Promise((resolve, reject) => {
+          wx.login({
+            success: resolve,
+            fail: reject
+          });
+        });
+        const { code } = loginRes;
+
+        // 2. 获取用户信息
+        const userInfo = await new Promise((resolve, reject) => {
+          wx.getUserProfile({
+            desc: '用于完善会员资料',
+            success: resolve,
+            fail: reject
+          });
+        });
+
+        // 3. 获取手机号
+        const phoneNumber = await app.getPhoneNumber();
+
+        // 调用 app.js 中的 login 方法
+        await app.login(code, userInfo.userInfo, phoneNumber);
+
         this.updateUserInfo();
         wx.showToast({ title: '登录成功' });
       } catch (error) {
